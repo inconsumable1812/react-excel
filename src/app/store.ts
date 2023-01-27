@@ -1,7 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { reducer as spreadSheetReducer } from '../store/spreadSheet/slice'
 
 export const store = configureStore({
-  reducer: {}
+  reducer: combineReducers({ spreadSheet: spreadSheetReducer }),
+  devTools: true
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
