@@ -1,6 +1,10 @@
 import { State } from './types'
 
 export const initialState: State = {
-  headers: [],
-  rows: []
+  spreadSheet: {
+    headers: [],
+    rows: []
+  },
+  error: '',
+  isLoading: false
 }

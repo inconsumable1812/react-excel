@@ -1,8 +1,12 @@
 import { FC, useRef } from 'react'
 import { Toast } from 'primereact/toast'
-import { FileUpload, FileUploadUploadParams } from 'primereact/fileupload'
+import {
+  FileUpload,
+  FileUploadUploadParams,
+  FileUploadErrorParams
+} from 'primereact/fileupload'
 import { useAppDispatch } from 'app/hooks'
-import { changeHeaders, changeRows } from 'store/spreadSheet/slice'
+import { changeSpreadSheet } from 'store/spreadSheet/slice'
 import { getDataFromXLSX, getHeaders, getRows } from 'utils'
 
 type Props = {}
@@ -17,19 +21,28 @@ export const FileUploader: FC<Props> = ({}) => {
     const headers = getHeaders(cols)
     const rows = getRows(data, cols)
 
-    dispatch(changeHeaders(headers))
-    dispatch(changeRows(rows))
+    dispatch(changeSpreadSheet({ headers, rows }))
   }
 
   const onUpload = (e: FileUploadUploadParams) => {
     if (toast.current === null) return
 
+    handleFileAsync(e.files)
     toast.current.show({
       severity: 'success',
       summary: 'Успех',
       detail: 'Файл загружен'
     })
-    handleFileAsync(e.files)
+  }
+
+  const onError = (e: FileUploadErrorParams) => {
+    if (toast.current === null) return
+
+    toast.current.show({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: 'Файл не загружен'
+    })
   }
 
   return (
@@ -42,6 +55,7 @@ export const FileUploader: FC<Props> = ({}) => {
           url="./upload.php"
           accept=".xlsx,.xls"
           onUpload={onUpload}
+          onError={onError}
           maxFileSize={1000000}
           invalidFileSizeMessageDetail="Превышен максимальный размер файла {0}"
           chooseOptions={{
@@ -49,7 +63,7 @@ export const FileUploader: FC<Props> = ({}) => {
             icon: 'pi pi-file-excel',
             className: 'p-button-success'
           }}
-          emptyTemplate={<p className="m-0">Перетащите сюда файл</p>}
+          emptyTemplate={<p className="m-0">Перетащите сюда файл Excel</p>}
         />
       </div>
     </>

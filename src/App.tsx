@@ -1,10 +1,10 @@
 import './App.css'
-import { DataTable } from 'components'
+import Main from 'pages/Main'
 
 function App() {
   return (
     <div className="App">
-      <DataTable />
+      <Main />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { getHeaders } from './getHeaders'
 import { getRows } from './getRows'
 import { convertToNumber } from './convertToNumber'
 import { calculateDate } from './calculateDate'
+import { delay } from './delay'
 
 export {
   toCapitalize,
@@ -11,5 +12,6 @@ export {
   getHeaders,
   getRows,
   convertToNumber,
-  calculateDate
+  calculateDate,
+  delay
 }

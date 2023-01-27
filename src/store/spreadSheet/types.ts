@@ -1,9 +1,7 @@
-import { RowData } from 'types'
+import { SpreadSheet } from 'types'
 
 export type State = {
-  headers: {
-    field: string
-    header: string
-  }[]
-  rows: RowData[]
+  spreadSheet: SpreadSheet
+  isLoading: boolean
+  error: string
 }
